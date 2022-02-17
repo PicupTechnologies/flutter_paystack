@@ -77,6 +77,7 @@ abstract class BaseTransactionManager {
     return CheckoutResponse(
         message: e.toString(),
         reference: transaction.reference,
+        id: transaction.id,
         status: false,
         card: charge.card?..nullifyNumber(),
         account: charge.account,
@@ -178,6 +179,7 @@ abstract class BaseTransactionManager {
     return CheckoutResponse(
         message: transaction.message,
         reference: transaction.reference,
+        id: transaction.id,
         status: true,
         card: charge.card?..nullifyNumber(),
         account: charge.account,

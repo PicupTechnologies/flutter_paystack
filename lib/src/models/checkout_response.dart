@@ -19,6 +19,9 @@ class CheckoutResponse {
   /// Transaction reference. Might be null for failed transaction transactions
   String? reference;
 
+  /// Transaction ID. Might be null for failed transaction transactions
+  String? id;
+
   /// The status of the transaction. A successful response returns true and false
   /// otherwise
   bool status;
@@ -41,6 +44,7 @@ class CheckoutResponse {
   CheckoutResponse(
       {required this.message,
       required this.reference,
+      required this.id,
       required this.status,
       required this.method,
       required this.verify,
@@ -50,6 +54,6 @@ class CheckoutResponse {
 
   @override
   String toString() {
-    return 'CheckoutResponse{message: $message, card: $card, account: $account, reference: $reference, status: $status, method: $method, verify: $verify}';
+    return 'CheckoutResponse{message: $message, card: $card, account: $account, reference: $reference, id: $id, status: $status, method: $method, verify: $verify}';
   }
 }

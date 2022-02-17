@@ -49,6 +49,7 @@ class CardTransactionManager extends BaseTransactionManager {
       return CheckoutResponse(
           message: e.toString(),
           reference: transaction.reference,
+          id: transaction.id,
           status: false,
           card: charge.card?..nullifyNumber(),
           method: CheckoutMethod.card,
