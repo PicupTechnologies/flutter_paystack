@@ -33,12 +33,14 @@ class AccentButton extends StatelessWidget {
   final VoidCallback onPressed;
   final String text;
   final bool showProgress;
+  final Color? color;
 
   AccentButton({
     Key? key,
     required this.onPressed,
     required this.text,
     this.showProgress = false,
+    this.color
   }) : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class AccentButton extends StatelessWidget {
     return _BaseButton(
       onPressed: onPressed,
       showProgress: showProgress,
-      color: Theme.of(context).accentColor,
+      color: color ?? Theme.of(context).colorScheme.secondary,
       borderSide: BorderSide.none,
       textStyle: const TextStyle(
           fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.bold),

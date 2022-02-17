@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:flutter_paystack/src/api/service/contracts/cards_service_contract.dart';
 import 'package:flutter_paystack/src/common/exceptions.dart';
 import 'package:flutter_paystack/src/common/my_strings.dart';
@@ -20,6 +21,7 @@ class CardCheckout extends StatefulWidget {
   final bool hideAmount;
   final CardServiceContract service;
   final String publicKey;
+  final PaystackTheme? theme;
 
   CardCheckout({
     Key? key,
@@ -30,6 +32,7 @@ class CardCheckout extends StatefulWidget {
     required this.service,
     required this.publicKey,
     this.hideAmount = false,
+    this.theme
   }) : super(key: key);
 
   @override
@@ -64,6 +67,7 @@ class _CardCheckoutState extends BaseCheckoutMethodState<CardCheckout> {
             buttonText: widget.hideAmount ? "Continue" : 'Pay $amountText',
             card: _charge.card,
             onValidated: _onCardValidated,
+              theme: widget.theme
           ),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:flutter_paystack/src/common/card_utils.dart';
 import 'package:flutter_paystack/src/common/utils.dart';
 import 'package:flutter_paystack/src/models/card.dart';
@@ -11,12 +12,14 @@ class CardInput extends StatefulWidget {
   final String buttonText;
   final PaymentCard? card;
   final ValueChanged<PaymentCard?> onValidated;
+  final PaystackTheme? theme;
 
   CardInput({
     Key? key,
     required this.buttonText,
     required this.card,
     required this.onValidated,
+    this.theme
   }) : super(key: key);
 
   @override
@@ -100,7 +103,8 @@ class _CardInputState extends State<CardInput> {
               key: Key("PayButton"),
               onPressed: _validateInputs,
               text: widget.buttonText,
-              showProgress: _validated),
+              showProgress: _validated,
+          color: widget.theme?.accentColor,),
         ],
       ),
     );

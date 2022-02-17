@@ -6,6 +6,7 @@ import 'package:flutter_paystack/src/common/utils.dart';
 import 'package:flutter_paystack/src/models/card.dart';
 import 'package:flutter_paystack/src/models/charge.dart';
 import 'package:flutter_paystack/src/models/checkout_response.dart';
+import 'package:flutter_paystack/src/models/theme.dart';
 import 'package:flutter_paystack/src/widgets/base_widget.dart';
 import 'package:flutter_paystack/src/widgets/checkout/bank_checkout.dart';
 import 'package:flutter_paystack/src/widgets/checkout/card_checkout.dart';
@@ -26,6 +27,7 @@ class CheckoutWidget extends StatefulWidget {
   final BankServiceContract bankService;
   final CardServiceContract cardsService;
   final String publicKey;
+  final PaystackTheme? theme;
 
   CheckoutWidget({
     required this.method,
@@ -37,6 +39,7 @@ class CheckoutWidget extends StatefulWidget {
     this.logo,
     this.hideEmail = false,
     this.hideAmount = false,
+    this.theme
   });
 
   @override
@@ -139,6 +142,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
       titlePadding: EdgeInsets.all(0.0),
       onCancelPress: onCancelPress,
       title: _buildTitle(),
+      theme: widget.theme,
       content: new Container(
         child: new SingleChildScrollView(
           child: GestureDetector(
@@ -165,7 +169,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
   }
 
   Widget _buildTitle() {
-    final accentColor = Theme.of(context).accentColor;
+    final accentColor = widget.theme?.accentColor ?? Theme.of(context).colorScheme.secondary;
     var emailAndAmount = Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: <Widget>[
@@ -175,7 +179,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             key: Key("ChargeEmail"),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(color: Colors.grey, fontSize: 12.0),
+            style: TextStyle(color: widget.theme?.lightTextColor ?? Colors.grey, fontSize: 12.0),
           ),
         if (!widget.hideAmount && !_charge.amount.isNegative)
           Row(
@@ -183,9 +187,9 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
+              Text(
                 'Pay',
-                style: const TextStyle(fontSize: 14.0, color: Colors.black54),
+                style: TextStyle(fontSize: 14.0, color: widget.theme?.darkTextColor ?? Colors.black54),
               ),
               SizedBox(
                 width: 5.0,
@@ -194,7 +198,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
                   child: Text(Utils.formatAmount(_charge.amount),
                       style: TextStyle(
                           fontSize: 15.0,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
+                          color: widget.theme?.amountTextColor ?? Theme.of(context).textTheme.bodyText1!.color,
                           fontWeight: FontWeight.w500)))
             ],
           )
@@ -246,7 +250,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
         child: new TabBar(
           controller: _tabController,
           isScrollable: true,
-          unselectedLabelColor: Colors.black54,
+          unselectedLabelColor: widget.theme?.darkTextColor ?? Colors.black54,
           labelColor: accentColor,
           labelStyle:
               new TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
@@ -308,6 +312,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
               _charge.card!.expiryMonth = card.expiryMonth;
               _charge.card!.expiryYear = card.expiryYear;
             },
+              theme: widget.theme
           )),
       new MethodItem(
         text: 'Bank',

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
 
 /// This is a modification of [AlertDialog]. A lot of modifications was made. The goal is
 /// to retain the dialog feel and look while adding the close IconButton
@@ -15,6 +16,7 @@ class CustomAlertDialog extends StatelessWidget {
     this.expanded = false,
     this.fullscreen = false,
     required this.content,
+    this.theme
   }) : super(key: key);
 
   final Widget? title;
@@ -24,6 +26,7 @@ class CustomAlertDialog extends StatelessWidget {
   final VoidCallback? onCancelPress;
   final bool expanded;
   final bool fullscreen;
+  final PaystackTheme? theme;
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +100,7 @@ class CustomAlertDialog extends StatelessWidget {
       var body = new Material(
         type: MaterialType.card,
         borderRadius: new BorderRadius.circular(10.0),
-        color: Colors.white,
+        color: theme?.backgroundColor ?? Colors.white,
         child: new Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,

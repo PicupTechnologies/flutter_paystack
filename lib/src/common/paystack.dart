@@ -12,6 +12,7 @@ import 'package:flutter_paystack/src/common/utils.dart';
 import 'package:flutter_paystack/src/models/card.dart';
 import 'package:flutter_paystack/src/models/charge.dart';
 import 'package:flutter_paystack/src/models/checkout_response.dart';
+import 'package:flutter_paystack/src/models/theme.dart';
 import 'package:flutter_paystack/src/transaction/card_transaction_manager.dart';
 import 'package:flutter_paystack/src/widgets/checkout/checkout_widget.dart';
 
@@ -126,6 +127,7 @@ class PaystackPlugin {
     Widget? logo,
     bool hideEmail = false,
     bool hideAmount = false,
+        PaystackTheme? theme
   }) async {
     return _Paystack(publicKey).checkout(
       context,
@@ -135,6 +137,7 @@ class PaystackPlugin {
       logo: logo,
       hideAmount: hideAmount,
       hideEmail: hideEmail,
+        theme: theme
     );
   }
 
@@ -170,6 +173,7 @@ class _Paystack {
     bool hideEmail = false,
     bool hideAmount = false,
     Widget? logo,
+  PaystackTheme? theme
   }) async {
     assert(() {
       _validateChargeAndKey(charge);
@@ -202,6 +206,7 @@ class _Paystack {
         logo: logo,
         hideAmount: hideAmount,
         hideEmail: hideEmail,
+        theme: theme
       ),
     );
     return response == null ? CheckoutResponse.defaults() : response;
