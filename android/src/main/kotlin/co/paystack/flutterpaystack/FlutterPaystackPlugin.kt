@@ -21,7 +21,7 @@ class FlutterPaystackPlugin : FlutterPlugin, ActivityAware {
         pluginBinding = null
     }
 
-    private fun setupMethodHandler(messenger: BinaryMessenger?, activity: Activity) {
+    private fun setupMethodHandler(messenger: BinaryMessenger?, activity: Activity?) {
         methodCallHandler = MethodCallHandlerImpl(messenger, activity)
     }
 
@@ -45,7 +45,8 @@ class FlutterPaystackPlugin : FlutterPlugin, ActivityAware {
         @JvmStatic
         fun registerWith(registrar: PluginRegistry.Registrar) {
             val plugin = FlutterPaystackPlugin()
-            plugin.setupMethodHandler(registrar.messenger(), registrar.activity())
+//            plugin.setupMethodHandler(registrar.messenger(), registrar.activity())
+            registrar.activity()?.let { plugin.setupMethodHandler(registrar.messenger(), it) }
         }
     }
 
