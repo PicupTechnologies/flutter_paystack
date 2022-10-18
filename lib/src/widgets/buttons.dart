@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 
 class WhiteButton extends _BaseButton {
   final bool flat;
@@ -35,20 +36,20 @@ class AccentButton extends StatelessWidget {
   final bool showProgress;
   final Color? color;
 
-  AccentButton({
-    Key? key,
-    required this.onPressed,
-    required this.text,
-    this.showProgress = false,
-    this.color
-  }) : super(key: key);
+  AccentButton(
+      {Key? key,
+      required this.onPressed,
+      required this.text,
+      this.showProgress = false,
+      this.color})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return _BaseButton(
       onPressed: onPressed,
       showProgress: showProgress,
-      color: color ?? Theme.of(context).colorScheme.secondary,
+      color: color ?? context.colorScheme().secondary,
       borderSide: BorderSide.none,
       textStyle: const TextStyle(
           fontSize: 14.0, color: Colors.white, fontWeight: FontWeight.bold),
@@ -106,12 +107,10 @@ class _BaseButton extends StatelessWidget {
                   ? new Container(
                       width: 20.0,
                       height: 20.0,
-                      child: new Theme(
-                          data: Theme.of(context)
-                              .copyWith(accentColor: Colors.white),
-                          child: new CircularProgressIndicator(
-                            strokeWidth: 2.0,
-                          )),
+                      child: new CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                        color: Colors.white,
+                      ),
                     )
                   : iconData == null
                       ? child == null

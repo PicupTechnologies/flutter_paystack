@@ -1,23 +1,23 @@
 import 'dart:math' as math;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
+import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 
 /// This is a modification of [AlertDialog]. A lot of modifications was made. The goal is
 /// to retain the dialog feel and look while adding the close IconButton
 class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog({
-    Key? key,
-    this.title,
-    this.titlePadding,
-    this.onCancelPress,
-    this.contentPadding = const EdgeInsets.symmetric(vertical: 10.0),
-    this.expanded = false,
-    this.fullscreen = false,
-    required this.content,
-    this.theme
-  }) : super(key: key);
+  const CustomAlertDialog(
+      {Key? key,
+      this.title,
+      this.titlePadding,
+      this.onCancelPress,
+      this.contentPadding = const EdgeInsets.symmetric(vertical: 10.0),
+      this.expanded = false,
+      this.fullscreen = false,
+      required this.content,
+      this.theme})
+      : super(key: key);
 
   final Widget? title;
   final EdgeInsetsGeometry? titlePadding;
@@ -36,7 +36,7 @@ class CustomAlertDialog extends StatelessWidget {
       children.add(new Padding(
         padding: titlePadding!,
         child: new DefaultTextStyle(
-          style: Theme.of(context).textTheme.headline6!,
+          style: context.textTheme().headline6!,
           child: new Semantics(child: title, namesRoute: true),
         ),
       ));
@@ -46,7 +46,7 @@ class CustomAlertDialog extends StatelessWidget {
       child: new Padding(
         padding: contentPadding,
         child: new DefaultTextStyle(
-          style: Theme.of(context).textTheme.subtitle1!,
+          style: context.textTheme().subtitle1!,
           child: content,
         ),
       ),
@@ -59,9 +59,6 @@ class CustomAlertDialog extends StatelessWidget {
     Widget widget;
     if (fullscreen) {
       widget = new Material(
-        color: Theme.of(context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.grey,
         child: new Container(
             child: onCancelPress == null
                 ? new Padding(
